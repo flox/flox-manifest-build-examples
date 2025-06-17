@@ -16,7 +16,7 @@ ENVS=$(find ./* -type d -prune -print |xargs -0 | tr -d './')
 declare -a DEFAULT_BUILD_MODIFIERS
 DEFAULT_BUILD_MODIFIERS=("" "-pure")
 declare -a FIXME_BUILDS
-FIXME_BUILDS=("quotes-app-python-pure" "quotes-app-jvm-pure" "quotes-app-go-pure" "quotes-app-nodejs-pure" "quotes-app-rb-pure" "quotes-app-rs-pure")
+FIXME_BUILDS=("quotes-app-python-pure" "quotes-app-jvm-pure" "quotes-app-go-pure" "quotes-app-rb-pure" "quotes-app-rs-pure")
 
 # Global test results
 declare -a TEST_RESULTS
@@ -27,7 +27,7 @@ build_app() {
   local build_name="$2"
 	echo "🔨 Building $build_name with Flox..."
 	pushd "$env_name" > /dev/null
-	"$FLOXBIN" build clean 
+	"$FLOXBIN" build clean
 	"$FLOXBIN" build "$build_name"
 	popd > /dev/null
 }
@@ -130,4 +130,3 @@ main() {
 }
 
 main "$@"
-
