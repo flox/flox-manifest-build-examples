@@ -12,11 +12,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Use the Flox installer, even though we're running the flake, because
+      # it gives us the correct Nix install.
       - name: "Install Flox"
         uses: "flox/install-flox-action@main"
 
+      - name: "Set NIX_CONFIG experimental-features"
+        run: echo "NIX_CONFIG=experimental-features = nix-command flakes" >> $GITHUB_ENV
+
+      # Test against the `main` branch of `flox/flox` so that we can exercise
+      # new fixes, features, and catch regressions.
       - name: "Set FLOXBIN env var"
-        run: echo "FLOXBIN=$(which flox)" >> $GITHUB_ENV
+        run: echo "FLOXBIN=nix run github:flox/flox --" >> $GITHUB_ENV
+
+      - name: "Debug nix.conf"
+        run: nix config show
 
       - name: "Enable build features"
         run: flox config --set-bool features.build true
