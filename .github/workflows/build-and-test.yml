@@ -26,7 +26,7 @@ jobs:
         run: echo "FLOXBIN=nix run github:flox/flox --" >> $GITHUB_ENV
 
       - name: "Debug nix.conf"
-        run: cat /etc/nix/nix.conf
+        run: nix config show
 
       - name: "Enable build features"
         run: flox config --set-bool features.build true
